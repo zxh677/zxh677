@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日祝福</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #ffebee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 90%;
+            animation: fadeIn 1s;
+        }
+        h1 {
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .cake {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        .balloon {
+            position: absolute;
+            font-size: 30px;
+            animation: float 8s infinite ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(5deg); }
+            50% { transform: translate(0, -50px) rotate(0deg); }
+            75% { transform: translate(-20px, -30px) rotate(-5deg); }
+        }
+        .name {
+            font-weight: bold;
+            color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <div class="balloon" style="left: 10%; top: 10%;">🎈</div>
+    <div class="balloon" style="left: 20%; top: 5%;">🎈</div>
+    <div class="balloon" style="right: 15%; top: 8%;">🎈</div>
+    <div class="balloon" style="right: 5%; top: 15%;">🎈</div>
+    
+    <div class="container">
+        <div class="cake">🎂</div>
+        <h1>生日快乐！</h1>
+        <p>亲爱的<span class="name">[名字]</span>：</p>
+        <p>在这个特别的日子里，</p>
+        <p>愿你的生活如蛋糕般甜蜜，</p>
+        <p>如气球般轻盈快乐！</p>
+        <p>🎉 生日快乐！ 🎉</p>
+        <p>—— <span class="name">[你的名字]</span></p>
+    </div>
+
+    <script>
+        // 自动替换名字
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const toName = urlParams.get('to') || '朋友';
+            const fromName = urlParams.get('from') || '你的朋友';
+            
+            // 替换名字
+            document.querySelectorAll('.name').forEach(el => {
+                if(el.textContent === '[名字]') {
+                    el.textContent = toName;
+                } else if(el.textContent === '[你的名字]') {
+                    el.textContent = fromName;
+                }
+            });
+            
+            // 添加更多气球
+            for(let i = 0; i < 5; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.textContent = Math.random() > 0.5 ? '🎈' : '🎉';
+                balloon.style.left = Math.random() * 80 + 10 + '%';
+                balloon.style.top = Math.random() * 20 + '%';
+                balloon.style.animationDelay = Math.random() * 5 + 's';
+                balloon.style.animationDuration = 6 + Math.random() * 6 + 's';
+                document.body.appendChild(balloon);
+            }
+        });
+    </script>
+</body>
+</html>
